@@ -1,5 +1,4 @@
-type UserId = string | number;
-type TaskId = string | number;
+type UniqueId = string | number;
 type UserName = string;
 type Email = string;
 type DateTimeString = string;

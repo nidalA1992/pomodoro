@@ -50,5 +50,7 @@ export function updateTask(task: ITask, updatedData: UpdateOptions): ITask {
     }
   }
 
+  task.updatedAt = new Date().toISOString();
+
   return updatedTask;
 }

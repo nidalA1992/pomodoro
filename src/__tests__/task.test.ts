@@ -1,19 +1,13 @@
-import { type ITask, createTask, updateTask } from '../domain/task';
-import {
-  checkMissingArguments,
-  checkInitialDates,
-  checkEntityIsExist,
-} from './snippets';
+import { createTask, updateTask } from '../domain/task';
+import { checkMissingArguments, checkInitialDates } from './utils.test';
 
 const NANOID_ID_LENGTH = 21;
 const MIN_TASK_CONTENT_LENGTH = 3;
 
 describe('\n______TASK ACTIONS______\n', () => {
-  let task: ITask;
-
   describe('1. createTask', () => {
     const taskContent = 'test task';
-    task = createTask(taskContent);
+    const task = createTask(taskContent);
 
     checkMissingArguments(createTask);
 
@@ -29,12 +23,13 @@ describe('\n______TASK ACTIONS______\n', () => {
         typeof task.content === 'string' &&
           task.content.length > MIN_TASK_CONTENT_LENGTH
       ).toBeTruthy();
-      checkInitialDates(task.createdAt, task.updatedAt);
     });
+    checkInitialDates(task.createdAt, task.updatedAt);
   });
 
   describe('2. updateTask', () => {
     const newTaskContent = 'test task updated';
+    const task = createTask('taskContent');
     const prevTask = task;
 
     checkMissingArguments(updateTask);
@@ -78,6 +73,10 @@ describe('\n______TASK ACTIONS______\n', () => {
       expect(decreasedTask.amount >= 1).toEqual(true);
       decreasedTask = updateTask(decreasedTask, { changeAmount: 'dec' });
       expect(decreasedTask.amount >= 1).toEqual(true);
+    });
+
+    test('updated time was changed, and be more than created time', () => {
+      expect(new Date(task.updatedAt) > new Date(task.createdAt)).toEqual(true);
     });
   });
 });

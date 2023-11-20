@@ -1,5 +1,5 @@
 import { createTask, updateTask } from '../domain/task';
-import { checkMissingArguments, checkInitialDates } from './utils.test';
+import { checkMissingArguments, checkInitialDates } from './utils';
 
 const NANOID_ID_LENGTH = 21;
 const MIN_TASK_CONTENT_LENGTH = 3;

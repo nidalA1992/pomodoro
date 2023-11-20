@@ -9,14 +9,12 @@ export interface ITaskList extends IInitialDate {
   tasks: {
     [N: UniqueId]: ITask;
   };
-  completedTaskAmount: number;
 }
 
 export function createTaskList(): ITaskList {
   return {
     id: nanoid(),
     tasks: {},
-    completedTaskAmount: 0,
     ...createInitialDate(),
   };
 }
@@ -65,15 +63,4 @@ export function deleteTask(taskId: UniqueId, taskList: ITaskList): ITaskList {
     tasks,
     updatedAt: new Date().toISOString(),
   };
-}
-
-export function increaseCompletedTaskAmount(taskList: ITaskList): ITaskList {
-  taskList.completedTaskAmount++;
-  return updateTime(taskList);
-}
-
-function updateTime(list: ITaskList) {
-  list.updatedAt = new Date().toISOString();
-
-  return list;
 }

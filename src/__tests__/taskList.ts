@@ -4,9 +4,8 @@ import {
   createTaskList,
   deleteTask,
   updateTaskList,
-  increaseCompletedTaskAmount,
 } from '../domain/task-list';
-import { checkInitialDates, checkMissingArguments } from './utils.test';
+import { checkInitialDates, checkMissingArguments } from './utils';
 
 describe('\n______TASK LIST ACTIONS______\n', () => {
   describe('1. create task list', () => {
@@ -22,7 +21,6 @@ describe('\n______TASK LIST ACTIONS______\n', () => {
       expect(taskList.tasks).toBeInstanceOf(Object);
       expect(Object.keys(taskList.tasks).length).toEqual(0);
       expect(taskList).toHaveProperty('completedTaskAmount');
-      expect(taskList.completedTaskAmount).toEqual(0);
     });
 
     checkInitialDates(taskList.createdAt, taskList.updatedAt);
@@ -89,29 +87,6 @@ describe('\n______TASK LIST ACTIONS______\n', () => {
       expect(withDeletedTaskTaskList).toBeInstanceOf(Object);
       expect(withDeletedTaskTaskList.tasks[taskId]).toBeUndefined();
       expect(withDeletedTaskTaskList === taskList).toEqual(false);
-    });
-  });
-
-  describe('5. increase completed task amount', () => {
-    test('increase', () => {
-      let taskList = createTaskList();
-
-      expect(taskList.completedTaskAmount).toEqual(0);
-      expect(increaseCompletedTaskAmount(taskList).completedTaskAmount).toEqual(
-        1
-      );
-      expect(increaseCompletedTaskAmount(taskList).completedTaskAmount).toEqual(
-        2
-      );
-      expect(increaseCompletedTaskAmount(taskList).completedTaskAmount).toEqual(
-        3
-      );
-      expect(increaseCompletedTaskAmount(taskList).completedTaskAmount).toEqual(
-        4
-      );
-      expect(increaseCompletedTaskAmount(taskList).completedTaskAmount).toEqual(
-        5
-      );
     });
   });
 });

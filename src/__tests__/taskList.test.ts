@@ -1,136 +1,117 @@
-import { ITask } from '../domain/task-list';
+import { type ITask, createTask, updateTask } from '../domain/task';
 import {
-  createTaskList,
   addTask,
-  updateTask,
+  createTaskList,
   deleteTask,
-} from '../domain/task-list/actions';
-
-const NANOID_ID_LENGTH = 21;
-const MIN_TASK_CONTENT_LENGTH = 3;
+  updateTaskList,
+  increaseCompletedTaskAmount,
+} from '../domain/task-list';
+import { checkInitialDates, checkMissingArguments } from './utils.test';
 
 describe('\n______TASK LIST ACTIONS______\n', () => {
-  const taskList = createTaskList();
-  let newTask: ITask;
+  describe('1. create task list', () => {
+    const taskList = createTaskList();
 
-  describe('1. createTaskList', () => {
-    test('create task list', () => {
+    test('task list created', () => {
       expect(taskList).toBeInstanceOf(Object);
     });
-    test('task list has necessary properties and values', () => {
-      expect(taskList.id.length).toBeGreaterThanOrEqual(NANOID_ID_LENGTH);
-      expect(taskList.completedTaskAmount).toEqual(0);
+
+    test('task list has necessary properties with necessary values', () => {
+      expect(taskList).toHaveProperty('id');
+      expect(taskList).toHaveProperty('tasks');
       expect(taskList.tasks).toBeInstanceOf(Object);
-      checkInitialDates(taskList.createdAt, taskList.updatedAt);
+      expect(Object.keys(taskList.tasks).length).toEqual(0);
+      expect(taskList).toHaveProperty('completedTaskAmount');
+      expect(taskList.completedTaskAmount).toEqual(0);
     });
+
+    checkInitialDates(taskList.createdAt, taskList.updatedAt);
   });
 
   describe('2. addTask', () => {
-    const taskContent = 'test task';
-    newTask = addTask(taskContent, taskList);
+    let taskList = createTaskList();
+
+    const newTask = createTask('test task');
 
     checkMissingArguments(addTask);
 
-    test('task has necessary properties', () => {
-      expect(newTask.id.length).toBeGreaterThanOrEqual(NANOID_ID_LENGTH);
-      expect(newTask.amount).toEqual(1);
-      expect(newTask.content === taskContent).toEqual(true);
-      expect(
-        typeof newTask.content === 'string' &&
-          newTask.content.length > MIN_TASK_CONTENT_LENGTH
-      ).toBeTruthy();
-      checkInitialDates(newTask.createdAt, newTask.updatedAt);
-    });
+    taskList = addTask(newTask, taskList);
 
     test('new task added in task list', () => {
       expect(taskList.tasks[newTask.id] === newTask).toEqual(true);
     });
   });
 
-  describe('3. updateTask', () => {
-    const prevTask = newTask;
-    const newTaskValue = 'test task updated';
+  describe('3. updateTaskList', () => {
+    let taskList = createTaskList();
+    const newTask = createTask('test task');
 
-    checkMissingArguments(updateTask);
-    checkEntityIsExist(() =>
-      updateTask('fakeID', taskList, { content: 'content for fake task' })
+    taskList = addTask(newTask, taskList);
+
+    const updatedTask = updateTask(newTask, { content: 'new task content' });
+    const updatedNotExistTaskList = updateTaskList(
+      { id: 'test' } as ITask,
+      taskList
     );
 
-    const updatedTask = updateTask(newTask.id, taskList, {
-      content: newTaskValue,
+    checkMissingArguments(updateTaskList);
+
+    test('task no exist', () => {
+      expect(updatedNotExistTaskList).toBeInstanceOf(Object);
+      expect(updatedNotExistTaskList === taskList).toEqual(true);
     });
 
-    test('update task', () => {
-      expect(updatedTask).toBeInstanceOf(Object);
-      expect(updatedTask).toHaveProperty('id');
-      expect(updatedTask).toHaveProperty('content');
-      expect(updatedTask).toHaveProperty('amount');
-      expect(updatedTask).toHaveProperty('createdAt');
-      expect(updatedTask).toHaveProperty('updatedAt');
-    });
+    const updatedList = updateTaskList(updatedTask, taskList);
 
-    test('don`t decrease task amount if current amount is equal 1', () => {
-      expect(updateTask(newTask.id, taskList, { changeAmount: 'dec' })).toEqual(
-        false
-      );
-      expect(updateTask(newTask.id, taskList, { changeAmount: 'dec' })).toEqual(
-        false
-      );
-      expect(taskList.tasks[newTask.id].amount === 1).toEqual(true);
-    });
-
-    test('increase task amount', () => {
-      expect(updateTask(newTask.id, taskList, { changeAmount: 'inc' })).toEqual(
-        true
-      );
-      expect(updateTask(newTask.id, taskList, { changeAmount: 'inc' })).toEqual(
-        true
-      );
-      expect(taskList.tasks[newTask.id].amount === 3).toEqual(true);
-    });
-
-    test('task updated in tasklist without mutate', () => {
-      const taskInTaskList = taskList.tasks[updatedTask.id];
-      expect(
-        prevTask !== updatedTask &&
-          prevTask.id === taskInTaskList.id &&
-          taskInTaskList.createdAt === prevTask.createdAt &&
-          taskInTaskList.updatedAt !== prevTask.updatedAt
-      ).toBeTruthy();
+    test('task was updated in task list', () => {
+      expect(taskList.tasks[updatedTask.id].id === newTask.id).toEqual(true);
+      expect(updatedList === taskList).toEqual(false);
     });
   });
 
   describe('4. deleteTask', () => {
+    let taskList = createTaskList();
+    const newTask = createTask('test task');
+    taskList = addTask(newTask, taskList);
+
     checkMissingArguments(deleteTask);
-    checkEntityIsExist(() => deleteTask('fakeId', taskList));
+
+    test('delete not exist task', () => {
+      const deletedNotExistTaskList = deleteTask('fakeID', taskList);
+      expect(deletedNotExistTaskList).toBeInstanceOf(Object);
+      expect(deletedNotExistTaskList === taskList).toEqual(true);
+    });
 
     test('task has been deleted from task list', () => {
       const taskId = newTask.id;
-      expect(deleteTask(taskId, taskList)).toEqual(true);
-      expect(taskList.tasks[taskId]).toBeUndefined();
+      const withDeletedTaskTaskList = deleteTask(taskId, taskList);
+
+      expect(withDeletedTaskTaskList).toBeInstanceOf(Object);
+      expect(withDeletedTaskTaskList.tasks[taskId]).toBeUndefined();
+      expect(withDeletedTaskTaskList === taskList).toEqual(false);
+    });
+  });
+
+  describe('5. increase completed task amount', () => {
+    test('increase', () => {
+      let taskList = createTaskList();
+
+      expect(taskList.completedTaskAmount).toEqual(0);
+      expect(increaseCompletedTaskAmount(taskList).completedTaskAmount).toEqual(
+        1
+      );
+      expect(increaseCompletedTaskAmount(taskList).completedTaskAmount).toEqual(
+        2
+      );
+      expect(increaseCompletedTaskAmount(taskList).completedTaskAmount).toEqual(
+        3
+      );
+      expect(increaseCompletedTaskAmount(taskList).completedTaskAmount).toEqual(
+        4
+      );
+      expect(increaseCompletedTaskAmount(taskList).completedTaskAmount).toEqual(
+        5
+      );
     });
   });
 });
-
-// utils
-function checkEntityIsExist(cb: Function) {
-  test('throw an error if entity not exist', () => {
-    expect(cb()).toThrow('Not exist');
-  });
-}
-
-function checkMissingArguments(cb: Function) {
-  test('throw an error if arguments not passed', () => {
-    // @ts-ignore
-    expect(() => cb()).toThrow(new Error('Missing arguments'));
-  });
-}
-
-function checkInitialDates(createdAt: string, updatedAt: string) {
-  expect(isDateTimeString(createdAt)).toBeTruthy();
-  expect(createdAt === updatedAt).toEqual(true);
-}
-
-function isDateTimeString(date: string): boolean {
-  return new Date(date).toISOString() === date;
-}

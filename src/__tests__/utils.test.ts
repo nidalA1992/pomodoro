@@ -23,3 +23,21 @@ describe('\n_____UTILS_____\n', () => {
     });
   });
 });
+
+export function checkMissingArguments(cb: Function) {
+  test('throw an error if arguments not passed', () => {
+    // @ts-ignore
+    expect(() => cb()).toThrow(new Error('Missing arguments'));
+  });
+}
+
+export function checkInitialDates(createdAt: string, updatedAt: string) {
+  function isDateTimeString(date: string): boolean {
+    return new Date(date).toISOString() === date;
+  }
+
+  test('initial date is ok', () => {
+    expect(isDateTimeString(createdAt)).toBeTruthy();
+    expect(createdAt === updatedAt).toEqual(true);
+  });
+}

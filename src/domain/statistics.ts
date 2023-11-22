@@ -1,4 +1,4 @@
-export interface IDayStatistics {
+export interface IStatisticData {
   date: DateTimeString;
   timeExpired: Seconds;
   pauseTime: Seconds;
@@ -6,22 +6,23 @@ export interface IDayStatistics {
   stopsAmount: number;
 }
 
+// export interface IStatistic
 export type CounterCallback = (
-  stats: IDayStatistics[],
+  stats: IStatisticData[],
   startTime: Date,
   finishTime: Date
 ) => void;
 
 const DAYS_REMEMBER_MEMBERS = 21;
 
-export const stats = {
+export const statsControls = {
   countDayWorkTime: timeCounter.bind(null, updateData(updateDayWorkTime)),
   updateDayPauseTime: timeCounter.bind(null, updateData(updateDayPauseTime)),
-  updateTasksAmount: timeCounter.bind(null, updateData(updateTasksAmount)),
-  updateStopsAmount: timeCounter.bind(null, updateData(updateStopsAmount)),
+  updateTasksAmount: updateData(updateTasksAmount),
+  updateStopsAmount: updateData(updateStopsAmount),
 };
 
-function createStatisticObject(_date?: Date): IDayStatistics {
+function createStatisticObject(_date?: Date): IStatisticData {
   const date = _date ?? new Date();
 
   return {
@@ -34,7 +35,7 @@ function createStatisticObject(_date?: Date): IDayStatistics {
 }
 
 function updateDayWorkTime(
-  dayMember: IDayStatistics,
+  dayMember: IStatisticData,
   start: Date,
   finish: Date
 ) {
@@ -43,18 +44,18 @@ function updateDayWorkTime(
   return dayMember;
 }
 
-function updateStopsAmount(dayMember: IDayStatistics) {
+function updateStopsAmount(dayMember: IStatisticData) {
   dayMember.stopsAmount += 1;
   return dayMember;
 }
 
-function updateTasksAmount(dayMember: IDayStatistics) {
+function updateTasksAmount(dayMember: IStatisticData) {
   dayMember.completedTasks += 1;
   return dayMember;
 }
 
 function updateDayPauseTime(
-  dayMember: IDayStatistics,
+  dayMember: IStatisticData,
   start: Date,
   finish: Date
 ) {
@@ -63,9 +64,9 @@ function updateDayPauseTime(
 }
 
 function updateData(
-  cb: (dayMember: IDayStatistics, start: Date, finish: Date) => IDayStatistics
+  cb: (dayMember: IStatisticData, start: Date, finish: Date) => IStatisticData
 ) {
-  return (stats: IDayStatistics[], start: Date, finish: Date) => {
+  return (stats: IStatisticData[], start = new Date(), finish = new Date()) => {
     const existMember = stats.find(
       stat => stat.date === start.toLocaleDateString()
     );
@@ -85,7 +86,7 @@ function updateData(
 
 function timeCounter(
   cb: CounterCallback,
-  stats: IDayStatistics[],
+  stats: IStatisticData[],
   _date?: Date
 ) {
   const start = _date ?? new Date();

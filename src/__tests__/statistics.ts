@@ -1,8 +1,8 @@
-import { stats, type IDayStatistics } from '../domain/statistics';
+import { statsControls, type IStatisticData } from '../domain/statistics';
 import { randomBetween } from '../shared/util/randomBetween';
 import { setDate } from '../shared/util/setDate';
 
-const statsArr: IDayStatistics[] = [];
+const statsArr: IStatisticData[] = [];
 const DAYS_MEMBERS = 21;
 
 describe('_____STATISTICS_____', () => {
@@ -15,7 +15,7 @@ describe('_____STATISTICS_____', () => {
         const startDateTime = setDate('Date', -i);
         const finishDateTime = setDate('Minutes', randomMinutes, startDateTime);
 
-        stats.countDayWorkTime(statsArr, startDateTime)(finishDateTime);
+        statsControls.countDayWorkTime(statsArr, startDateTime)(finishDateTime);
       }
     }
 
@@ -33,7 +33,7 @@ describe('_____STATISTICS_____', () => {
 
       for (let k = 0; k < randomAmountDayMember; k++) {
         const date = setDate('Date', -i);
-        stats.updateTasksAmount(statsArr, date)(date);
+        statsControls.updateTasksAmount(statsArr, date);
       }
     }
 
@@ -52,7 +52,10 @@ describe('_____STATISTICS_____', () => {
         const startDateTime = setDate('Date', -i);
         const finishDateTime = setDate('Minutes', randomMinutes, startDateTime);
 
-        stats.updateDayPauseTime(statsArr, startDateTime)(finishDateTime);
+        statsControls.updateDayPauseTime(
+          statsArr,
+          startDateTime
+        )(finishDateTime);
       }
     }
 
@@ -68,7 +71,7 @@ describe('_____STATISTICS_____', () => {
 
       for (let k = 0; k < randomAmountDayMember; k++) {
         const date = setDate('Date', -i);
-        stats.updateStopsAmount(statsArr, date)(date);
+        statsControls.updateStopsAmount(statsArr, date);
       }
     }
 

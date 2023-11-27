@@ -1,0 +1,62 @@
+.wrapper {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+
+  background-color: var(--red-dark);
+  min-height: 100vh;
+  width: 100%;
+}
+
+.text {
+  align-self: center;
+  color: var(--white);
+  font-weight: 100;
+  font-size: 10rem;
+  letter-spacing: 0.5rem;
+}
+
+.img {
+  color: var(--white);
+  font-size: 23rem;
+
+  img {
+    position: relative;
+    height: 19rem;
+    width: 19rem;
+    z-index: 2;
+  }
+
+  div {
+    display: inline-block;
+  }
+
+  div:first-of-type {
+    position: relative;
+    rotate: -15deg;
+    translate: 3rem 1rem;
+    z-index: 3;
+  }
+
+  div:last-of-type {
+    rotate: 15deg;
+    translate: -6rem;
+  }
+}
+
+.linkText {
+  font-size: 4rem;
+  font-weight: 700;
+
+  color: var(--green);
+
+  span {
+    text-decoration: underline;
+    color: var(--white);
+    transform: var(--trans-normal);
+  }
+
+  &:hover span {
+    color: var(--green);
+  }
+}

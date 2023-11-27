@@ -1,4 +1,7 @@
+import { nanoid } from 'nanoid';
+
 export interface IStatisticData {
+  id: UniqueId;
   date: DateTimeString;
   timeExpired: Seconds;
   pauseTime: Seconds;
@@ -22,10 +25,11 @@ export const statsControls = {
   updateStopsAmount: updateData(updateStopsAmount),
 };
 
-function createStatisticObject(_date?: Date): IStatisticData {
+export function createStatisticObject(_date?: Date): IStatisticData {
   const date = _date ?? new Date();
 
   return {
+    id: nanoid(),
     date: date.toLocaleDateString(),
     timeExpired: 0,
     pauseTime: 0,

@@ -10,8 +10,6 @@ export const AuthLayout: FC<IAuthLayoutProps> = props => {
         <img
           className={s.logoImg}
           src='/images/tomato-img.png'
-          height={190}
-          width={190}
           alt='Логотип pomodoro_box'
         />
         <span className={s.logoText}>pomodoro_box</span>

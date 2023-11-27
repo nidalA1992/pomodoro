@@ -1,32 +1,44 @@
 .main {
   display: grid;
-  place-content: center;
-
+  grid-template-rows: 0.2fr 23rem 1fr 1fr;
+  gap: 2.5rem;
+  justify-content: center;
+  max-height: 100vh;
   width: 100%;
-  min-height: 100vh;
   background-color: var(--red-dark);
 }
 
+.logo {
+  display: grid;
+  grid-row: 2;
+
+  justify-items: center;
+  gap: 10px;
+
+  .logoText {
+    font-size: 2.4rem;
+    font-weight: 100;
+    color: var(--white);
+    letter-spacing: 1.5px;
+  }
+
+  .logoImg {
+    width: 19rem;
+    height: 19rem;
+  }
+}
+
 .contentContainer {
+  grid-row: 3;
   height: 300px;
   width: 300px;
   background-color: var(--white);
 }
 
-.logo {
-  display: grid;
-  justify-items: center;
-  gap: 10px;
-}
-
-.logoText {
-  font-size: 2.4rem;
-  font-weight: 300;
-  color: var(--white);
-  letter-spacing: 0.3px;
-}
-
 .copy {
+  grid-row: 4;
+  place-self: end center;
+  margin-bottom: 2rem;
   color: var(--white);
   font-size: 1rem;
 }

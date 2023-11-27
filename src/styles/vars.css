@@ -15,4 +15,8 @@
 
   --green: #a8b64f;
   --green-dark: #899441;
+
+  /* transition */
+
+  --trans-normal: 300ms ease-in;
 }

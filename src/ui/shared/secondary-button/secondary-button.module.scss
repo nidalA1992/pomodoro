@@ -1,0 +1,15 @@
+.button {
+  border-color: var(--tomato);
+  background-color: transparent;
+  color: var(--tomato);
+
+  &:hover {
+    background-color: var(--tomato);
+    color: var(--white);
+  }
+
+  &:disabled {
+    background-color: transparent;
+    color: var(--grey);
+  }
+}

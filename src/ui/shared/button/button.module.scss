@@ -1,0 +1,15 @@
+.button {
+  border: 2px solid transparent;
+  padding: 1.9rem 5rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  cursor: pointer;
+
+  transition: var(--trans-normal);
+
+  &:disabled {
+    background-color: var(--grey);
+    border-color: var(--grey);
+    cursor: initial;
+  }
+}

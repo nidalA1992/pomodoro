@@ -1,5 +1,11 @@
 @import 'fonts.css';
-@import 'colors.css';
+@import 'vars.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 html {
   font-size: 10px;

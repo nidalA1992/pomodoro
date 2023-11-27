@@ -5,7 +5,7 @@ import { Title } from '../../../shared/title';
 import { PrimaryButton } from '../../../shared/primary-button';
 
 export const LoginForm = () => {
-  const { handleSubmit } = useLoginForm();
+  const { handleSubmit, message } = useLoginForm();
 
   return (
     <FormLayout onSubmit={handleSubmit}>
@@ -20,6 +20,7 @@ export const LoginForm = () => {
       />
       <Input type='email' name='email' placeholder='E-mail' required />
       <PrimaryButton>Начать</PrimaryButton>
+      {message && <p style={{ color: 'var(--white)' }}>{message}</p>}
     </FormLayout>
   );
 };

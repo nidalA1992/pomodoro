@@ -39,7 +39,8 @@ export const useUsersService = (): IUserService => {
     },
     login: (username: UserName, email: Email) => {
       const users = storageLocale('get', 'users') as IUser[];
-      const user = users.find(
+
+      const user = users?.find(
         user => user.username === username && email === user.email
       );
 

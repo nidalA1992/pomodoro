@@ -14,7 +14,7 @@ export const useUserLogin = () => {
       const user = userService.login(username, email);
 
       if (!user) {
-        notification.notify('User not exist');
+        notification.notify('*Неверное имя или E-mail');
       }
 
       userStore.setUser(user);

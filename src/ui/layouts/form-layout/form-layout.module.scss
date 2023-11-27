@@ -1,0 +1,13 @@
+.form {
+  display: grid;
+  place-items: center;
+
+  gap: 2.5rem;
+  padding: 2.5rem;
+  background-color: var(--red-light);
+  width: 100%;
+
+  input {
+    width: min(370px, 100%);
+  }
+}

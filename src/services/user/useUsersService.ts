@@ -2,7 +2,7 @@ import { IUserService } from '../../application/user/ports';
 import { createTimerOptions } from '../../domain/timer';
 import { createStatisticObject } from '../../domain/statistics';
 import { IUser, createUser } from '../../domain/user';
-import { storageLocale } from '../../shared/util/storageLocale';
+import { storageLocale } from '../../util/storageLocale';
 import { createTaskList } from '../../domain/task';
 
 export const useUsersService = (): IUserService => {

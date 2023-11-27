@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
-import type { IInitialDate } from '../shared/util/interfaces';
-import { createInitialDate } from '../shared/util/createInitialDate';
+import type { IInitialDate } from '../util/interfaces';
+import { createInitialDate } from '../util/createInitialDate';
 import { IUser } from './user';
 
 export interface ITask extends IInitialDate {

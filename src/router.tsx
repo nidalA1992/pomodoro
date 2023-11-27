@@ -8,7 +8,15 @@ export const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <h1>MAIN PAGE</h1>,
+    element: (
+      <div>
+        <h1>MAIN PAGE</h1>
+        <h2>MAIN PAGE</h2>
+        <h3>MAIN PAGE</h3>
+        <h4>MAIN PAGE</h4>
+        <h5>MAIN PAGE</h5>
+      </div>
+    ),
     children: [],
   },
 ]);

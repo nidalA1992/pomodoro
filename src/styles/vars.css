@@ -18,5 +18,5 @@
 
   /* transition */
 
-  --trans-normal: 300ms ease-in;
+  --trans-normal: 100ms ease-in-out;
 }

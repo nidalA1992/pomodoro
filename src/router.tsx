@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { AuthPage } from './ui/pages/auth-page';
+import { LoginPage } from './ui/pages/login-page';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <AuthPage />,
+    element: <LoginPage />,
     children: [],
   },
   {

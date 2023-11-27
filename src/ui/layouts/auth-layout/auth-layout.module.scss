@@ -1,0 +1,14 @@
+.main {
+  display: grid;
+  place-content: center;
+
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--red-dark);
+}
+
+.contentContainer {
+  height: 300px;
+  width: 300px;
+  background-color: var(--green);
+}

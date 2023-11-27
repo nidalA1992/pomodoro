@@ -1,0 +1,18 @@
+:root {
+  --white: #ffffff;
+  --black: #333333;
+
+  --grey-light: #f4f4f4;
+  --grey: #c4c4c4;
+  --grey-dark: #999999;
+
+  --coral-light: #ea8979;
+  --coral: #ee735d;
+  --tomato: #dc3e22;
+
+  --red-dark: #9f210c;
+  --red-light: #b7280f;
+
+  --green: #a8b64f;
+  --green-dark: #899441;
+}

@@ -3,6 +3,7 @@ import { ErrorPage } from './ui/pages/error-page';
 import { AuthLayout } from './ui/layouts/auth-layout';
 import { LoginForm } from './ui/features/auth/login-form';
 import { SignUpForm } from './ui/features/auth/sign-up-form';
+import { ROUTES } from './routes';
 
 export const router = createBrowserRouter([
   {
@@ -10,24 +11,20 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/',
+        path: ROUTES.HOME,
         element: <LoginForm />,
       },
       {
-        path: '/sign-up',
+        path: ROUTES.SIGN_UP,
         element: <SignUpForm />,
       },
     ],
   },
   {
-    path: '/dashboard',
+    path: `${ROUTES.USER}/:userName`,
     element: (
       <div>
-        <h1>DASHBOARD</h1>
-        <h2>DASHBOARD</h2>
-        <h3>DASHBOARD</h3>
-        <h4>DASHBOARD</h4>
-        <h5>DASHBOARD</h5>
+        <h1>user</h1>
       </div>
     ),
     children: [],

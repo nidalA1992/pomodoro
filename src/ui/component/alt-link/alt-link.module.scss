@@ -1,0 +1,13 @@
+.textWrapper {
+  color: var(--white);
+
+  a {
+    text-decoration: underline;
+    transition: var(--trans-normal);
+    color: var(--white);
+
+    &:hover {
+      color: var(--green);
+    }
+  }
+}

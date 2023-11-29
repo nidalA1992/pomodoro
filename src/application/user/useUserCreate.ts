@@ -18,6 +18,8 @@ export const useUserCreate = () => {
       }
 
       userStore.setUser(user);
+
+      return user;
     } catch (error: unknown) {
       if (error instanceof Error) {
         notification.notify(error.message);

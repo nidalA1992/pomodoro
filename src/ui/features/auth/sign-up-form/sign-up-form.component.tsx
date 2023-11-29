@@ -1,15 +1,16 @@
 import { FormLayout } from '../../../layouts/form-layout';
-import { useLoginForm } from './useLoginForm';
 import { Input } from '../../../shared/input';
-import { Title } from '../../../shared/title';
 import { PrimaryButton } from '../../../shared/primary-button';
+import { Title } from '../../../shared/title';
+import { useSignUpForm } from './useSignUpForm';
+import { AltLink } from '../../../component/alt-link';
 
-export const LoginForm = () => {
-  const { handleSubmit, message } = useLoginForm();
+export const SignUpForm = () => {
+  const { handleSubmit, message } = useSignUpForm();
 
   return (
     <FormLayout onSubmit={handleSubmit}>
-      <Title color='white'>Совсем чуть-чуть и можем начинать!</Title>
+      <Title color='white'>Зарегестрируйся и можешь начинать!</Title>
       <Input
         type='text'
         name='name'
@@ -19,7 +20,8 @@ export const LoginForm = () => {
         required
       />
       <Input type='email' name='email' placeholder='E-mail' required />
-      <PrimaryButton>Начать</PrimaryButton>
+      <AltLink text='Уже зарегестрировался?' path='/' linkText='Жми сюда' />
+      <PrimaryButton>Зарегестрироваться</PrimaryButton>
       {message && <p style={{ color: 'var(--white)' }}>{message}</p>}
     </FormLayout>
   );

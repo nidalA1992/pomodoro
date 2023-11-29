@@ -1,12 +1,23 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { LoginPage } from './ui/pages/login-page';
 import { ErrorPage } from './ui/pages/error-page';
+import { AuthLayout } from './ui/layouts/auth-layout';
+import { LoginForm } from './ui/features/auth/login-form';
+import { SignUpForm } from './ui/features/auth/sign-up-form';
 
 export const router = createBrowserRouter([
   {
-    path: '/',
-    element: <LoginPage />,
+    element: <AuthLayout />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '/',
+        element: <LoginForm />,
+      },
+      {
+        path: '/sign-up',
+        element: <SignUpForm />,
+      },
+    ],
   },
   {
     path: '/dashboard',

@@ -1,3 +1,1 @@
-export interface IAuthLayoutProps {
-  children: React.ReactNode;
-}
+export interface IAuthLayoutProps {}

@@ -1,4 +1,5 @@
 import { type FC } from 'react';
+import { Outlet } from 'react-router-dom';
 
 import type { IAuthLayoutProps } from './auth-layout.props';
 import s from './auth-layout.module.scss';
@@ -14,7 +15,9 @@ export const AuthLayout: FC<IAuthLayoutProps> = props => {
         />
         <span className={s.logoText}>pomodoro_box</span>
       </a>
-      <div className={s.contentContainer}>{props.children}</div>
+      <div className={s.contentContainer}>
+        <Outlet />
+      </div>
       <p className={s.copy}>Skillbox® | {new Date().getUTCFullYear()}</p>
     </main>
   );

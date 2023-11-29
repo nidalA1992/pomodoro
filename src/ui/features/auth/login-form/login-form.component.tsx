@@ -20,17 +20,13 @@ export const LoginForm = () => {
         required
       />
       <Input type='email' name='email' placeholder='E-mail' required />
+      {message && <p style={{ color: 'var(--white)' }}>{message}</p>}
       <PrimaryButton>Начать</PrimaryButton>
-      {message && (
-        <>
-          <p style={{ color: 'var(--white)' }}>{message}</p>
-          <AltLink
-            text='Не получается в айти?'
-            path='/sign-up'
-            linkText='Жми сюда'
-          />
-        </>
-      )}
+      <AltLink
+        text='Не получается в айти?'
+        path='/sign-up'
+        linkText='Жми сюда'
+      />
     </FormLayout>
   );
 };

@@ -20,9 +20,9 @@ export const SignUpForm = () => {
         required
       />
       <Input type='email' name='email' placeholder='E-mail' required />
-      <AltLink text='Уже зарегестрировался?' path='/' linkText='Жми сюда' />
-      <PrimaryButton>Зарегестрироваться</PrimaryButton>
       {message && <p style={{ color: 'var(--white)' }}>{message}</p>}
+      <PrimaryButton>Зарегестрироваться</PrimaryButton>
+      <AltLink text='Уже зарегестрировался?' path='/' linkText='Жми сюда' />
     </FormLayout>
   );
 };

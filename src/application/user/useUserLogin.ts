@@ -13,13 +13,13 @@ export const useUserLogin = () => {
     try {
       const user = userService.login(username, email);
 
-      if (!user) {
-        notification.notify('*Неверное имя или E-mail');
+      if (user) {
+        userStore.setUser(user);
+        return user;
       }
 
-      userStore.setUser(user);
-
-      return user;
+      notification.notify('*Неверное имя или E-mail');
+      return null;
     } catch (error: unknown) {
       if (error instanceof Error) {
         notification.notify(error.message);

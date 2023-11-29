@@ -13,13 +13,13 @@ export const useUserCreate = () => {
     try {
       const user = userService.createUser(username, email);
 
-      if (!user) {
-        notification.notify('create user error');
+      if (user) {
+        userStore.setUser(user);
+        return user;
       }
 
-      userStore.setUser(user);
-
-      return user;
+      notification.notify('create user error');
+      return null;
     } catch (error: unknown) {
       if (error instanceof Error) {
         notification.notify(error.message);
